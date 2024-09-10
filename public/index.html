@@ -1,0 +1,93 @@
+<!DOCTYPE html> 
+<html lang="en-us">
+    <head>
+        <meta charset="utf-8">
+        <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js" crossorigin="anonymous"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/ramda/0.30.0/ramda.min.js"></script>
+        <script src="https://unpkg.com/rxjs@^7/dist/bundles/rxjs.umd.min.js"></script>
+        <title>Wiki Search Tool</title> 
+        <style type="text/css">
+            html, body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+            }
+            body {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background-color: #f5f5f5;
+                font-family: Arial, sans-serif;
+            }
+
+            .centered-container {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                width: 100%;
+                text-align: center;
+            }
+
+            .input-form {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+
+            .text-input {
+                padding: 10px;
+                font-size: 16px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                margin-right: 10px;
+                flex: 1;
+            }
+
+            .submit-button {
+                padding: 10px 20px;
+                font-size: 16px;
+                color: white;
+                background-color: #007bff;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            .submit-button:hover {
+                background-color: #0056b3;
+            }
+
+            .bullet-list {
+                list-style-type: disc;
+                padding-left: 20px;
+                text-align: left;
+            }
+           
+        </style>
+    </head>
+    <body>
+        <div>
+            <div class="centered-container">
+                <form class="input-form">
+                    <input type="text" id="search" class="text-input" placeholder="Enter text here">
+                    <button type="submit" id="submit" class="submit-button">Submit</button>
+                    <span id="count"></span>
+                </form>
+                <ul id="results" class="bullet-list">
+                    
+                </ul>
+            </div>
+        </div>
+        <script>
+            
+
+
+
+        </script>
+        <script src="../src/index.js">
+        </script>         
+    </body>
+</html>
