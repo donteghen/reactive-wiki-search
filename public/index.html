@@ -11,6 +11,7 @@
                 margin: 0;
                 padding: 0;
                 height: 100%;
+                font-family: monospace, sans-serif;
             }
             body {
                 display: flex;
@@ -18,7 +19,7 @@
                 align-items: center;
                 height: 100vh;
                 background-color: #f5f5f5;
-                font-family: Arial, sans-serif;
+                
             }
 
             .centered-container {
@@ -54,6 +55,7 @@
                 border: none;
                 border-radius: 4px;
                 cursor: pointer;
+                font-family: inherit;
             }
 
             .submit-button:hover {
@@ -65,6 +67,18 @@
                 padding-left: 20px;
                 text-align: left;
             }
+            li {
+                margin: 15px 0;
+                
+            }
+            .count {
+                margin-left: 10px;
+                border-radius: 4px;
+                background: #007bff;
+                padding: 10px;
+                color: white;
+                font-weight: bolder;
+            }
            
         </style>
     </head>
@@ -73,8 +87,8 @@
             <div class="centered-container">
                 <form class="input-form">
                     <input type="text" id="search" class="text-input" placeholder="Enter text here">
-                    <button type="submit" id="submit" class="submit-button">Submit</button>
-                    <span id="count"></span>
+                    <button type="submit" id="submit" class="submit-button">Reset</button>
+                    <span id="count" hidden class="count"></span>
                 </form>
                 <ul id="results" class="bullet-list">
                     

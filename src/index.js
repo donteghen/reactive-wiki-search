@@ -1,8 +1,7 @@
 const { combineLatest, bufferCount, bufferTime, interval, skip, take, map, tap, timeInterval, fromEvent, mergeMap, 
-    filter, catchError, debounceTime, from} = rxjs;
-const {ajax} = rxjs.ajax
-// const {combineLatest, bufferCount, bufferTime, interval, skip, take, map, tap, timeInterval, fromEvent, mergeMap, filter, debounceTime} = require('rxjs')
-// const {ajax} = require('rxjs/ajax');
+    filter, catchError, debounceTime, from, of} = rxjs;
+
+
 
 const searchBox = document.querySelector('#search'); 
 const results = document.querySelector('#results');  
@@ -13,41 +12,48 @@ const _URL = 'https://api.duckduckgo.com/?q=${encodeURIComponent(query)}&format=
 
 const notEmpty = input => !!input && input.trim().length > 0;
 
-function clearResults(container) {
+const clearResults = (container) => {
     while(container.childElementCount > 0) {
        container.removeChild(container.firstChild);
     }
 }
 
-function appendResults(result, container) {
-    let li = document.createElement('li');
-    let text = document.createTextNode(result);
-    li.appendChild(text);
-    container.appendChild(li);
+const appendResults = (results, container) => {
+    results.forEach(result => {
+        let li = document.createElement('li');
+        let text = document.createTextNode(result);
+        li.appendChild(text);
+        container.appendChild(li);
+    })
+}
+
+const updateCount = (results, ele) => {
+    ele.removeAttribute('hidden');
+    ele.textContent = `${results.length} ${results.length > 1 ? 'Results' : 'Result'} ${results.length > 0 ? '🎉' : ''}`;  
 }
 
 const inputEvents$ = fromEvent(searchBox, 'keyup').pipe(
     map(R.compose(R.prop('value'), R.prop('target'))),
     debounceTime(500),
     filter(notEmpty),
-    tap(term => console.log(`Searching with term ${term}`)),
-    // map(term => {
-    //     console.log('term', term, _URL + term)
-    //     return _URL.replace('query', term)
-    // }),
+    //tap(term => console.log(`Searching with term ${term}`)),
     mergeMap(query => from(searchWikipedia(query)).pipe(            
             map(R.compose(R.prop('search'), R.prop('query'))),
             catchError(error => {
-                console.log('error: ', error);
                 return of(error);
             }),
-            tap(r => console.log(r)),
+            //tap(r => console.log(r)),
         )
     ),
     map(R.map(R.prop('title')))
-).subscribe(
-    console.log
-)
+).subscribe({
+    next: (titles) => {
+        updateCount(titles, count);      
+        clearResults(results);
+        appendResults(titles, results);
+    }
+});
+
 
 
 function searchWikipedia (searchTerm) {
